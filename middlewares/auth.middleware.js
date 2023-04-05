@@ -20,11 +20,11 @@ const jwt = require('jsonwebtoken');
      next(createError(401, 'Token error'));
    }
 
-   jwt.verify(token, 'test', (err, decodedToken) => {
+   jwt.verify(token, process.env.JWT_SECRET || 'test', (err, decodedToken) => {
      if (err) {
        return next(err)
      } else {
-       req.currentUser = decodedToken.id
+      req.currentUserId = decodedToken.id
        next()
      }
    })

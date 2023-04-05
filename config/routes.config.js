@@ -2,7 +2,7 @@ const router = require('express').Router();
 const usersController = require('../controllers/user.controller');
 const authController = require('../controllers/auth.controller');
 const { isAuthenticaded } = require('../middlewares/auth.middleware');
-
+const authMiddleware = require('../middlewares/auth.middleware');
 
 // test
 
@@ -19,6 +19,8 @@ router.post('/register', usersController.create)
 // Users
 
 router.post('/users', usersController.create);
-router.get('/users', isAuthenticaded, usersController.list);
+router.get('/users', usersController.list);
+router.get('/users/me', authMiddleware.isAuthenticaded, usersController.getCurrentUser);
+router.get('/users/:id', usersController.getUser);
 
 module.exports = router;

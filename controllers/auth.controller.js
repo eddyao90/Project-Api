@@ -4,24 +4,36 @@ const User = require('../models/User');
  const jwt = require('jsonwebtoken');
 
  module.exports.login = (req, res, next) => {
-   User.findOne({ email: req.body.email })
-     .then(user => {
-       if (!user) {
-         return next(createError(StatusCodes.NOT_FOUND, 'Email or password incorrect'))
-       }
+  const loginError = createError(StatusCodes.UNAUTHORIZED, 'Email or password incorrect');
+  const { email, password } = req.body
 
-       return user.checkPassword(req.body.password)
-         .then((match) => {
-           if (!match) {
-             return next(createError(StatusCodes.NOT_FOUND, 'Email or password incorrect'))
-           }
+  if (!email || !password) {
+    return next(loginError);
+  }
 
-           const token = jwt.sign({ id: user.id }, 'test', {
-             expiresIn: '10m'
-           })
+  User.findOne({ email })
+    .then(user => {
+      if (!user) {
+        return next(loginError)
+      }
 
-           res.json({accessToken: token})
-         })
-     })
-     .catch(next)
-    }
+
+      return user.checkPassword(password)
+        .then(match => {
+          if (!match) {
+            return next(loginError)
+          }
+
+          const token = jwt.sign(
+            { id: user.id },
+            process.env.JWT_SECRET || 'test',
+            {
+              expiresIn: '7d'
+            }
+          )
+
+          res.json({ accessToken: token })
+        })
+    })
+    .catch(next)
+}
