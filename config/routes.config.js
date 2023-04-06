@@ -15,6 +15,7 @@ router.get("/message", (req, res) => {
 
 router.post('/login', authController.login);
 router.post('/register', usersController.create)
+router.get("/logout", authMiddleware.isAuthenticaded, authController.logout);
 
 // Users
 

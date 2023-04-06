@@ -37,3 +37,7 @@ const User = require('../models/User');
     })
     .catch(next)
 }
+
+module.exports.logout = (req, res, next) => {
+  req.logout(() => res.redirect("/"));
+};
