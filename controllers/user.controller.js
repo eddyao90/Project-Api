@@ -41,3 +41,15 @@ module.exports.getCurrentUser = (req, res, next) => {
     })
     .catch(next)
 }
+
+//messages
+module.exports.message = (req, res, next) => {
+  Message.find()
+  .populate('user')
+  .populate('message')
+  .then(messages => {
+      console.log("holaaaaaa")
+      res.render('Scrapbook', { messages });
+  })
+  .catch(err => next(err))
+}

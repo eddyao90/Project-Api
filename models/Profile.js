@@ -39,9 +39,23 @@ const profileSchema = new mongoose.Schema(
             type: String,
             required: [true, 'Required'],
         },
-        top: {
+        top3: {
             type: String,
             required: [true, 'Required'],
+        },
+        friends: {
+            type: Array,
+            default: [],
         }
+    },
+    {
+        timestamps: true,
+        toObject: { 
+          virtuals: true
+        },
     }
 )
+
+const Profile = mongoose.model('Profile', profileSchema)
+
+module.exports = Profile;
