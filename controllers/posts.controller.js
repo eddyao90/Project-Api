@@ -1,6 +1,5 @@
 const Post = require('../models/Post');
 const mongoose = require('mongoose');
-const { posts } = require('../config/routes.config');
  
 
 module.exports.getPosts = async (req, res) => { 
