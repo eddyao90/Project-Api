@@ -25,6 +25,9 @@ router.get('/users/me', authMiddleware.isAuthenticaded, usersController.getCurre
 router.get('/users/:id', usersController.getUser);
 
 
+// Profile
+
+
 //Scrapbook
 
 router.get('/posts', authMiddleware.isAuthenticaded, postsController.getPost);

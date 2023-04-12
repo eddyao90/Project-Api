@@ -1,6 +1,7 @@
 const User = require('../models/User');
 const { StatusCodes } = require('http-status-codes');
 const createError = require('http-errors');
+const isAuthenticaded = require('../middlewares/auth.middleware')
 
  //criando usuario
  module.exports.create = (req, res, next) => {
@@ -42,14 +43,13 @@ module.exports.getCurrentUser = (req, res, next) => {
     .catch(next)
 }
 
-//messages
-module.exports.message = (req, res, next) => {
-  Message.find()
-  .populate('user')
-  .populate('message')
-  .then(messages => {
-      console.log("holaaaaaa")
-      res.render('Scrapbook', { messages });
+module.exports.profile = (req, res, next) => {
+  const { id } = req.user;
+
+  Profile.findById(id)
+  .then(profile => {
+      res.render('user/profile')
   })
   .catch(err => next(err))
-}
+};
+
