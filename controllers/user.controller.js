@@ -5,8 +5,8 @@ const isAuthenticaded = require('../middlewares/auth.middleware')
 
  //criando usuario
  module.exports.create = (req, res, next) => {
-  const { email, password, firstName, lastName } = req.body;
-  User.create({ email, password, firstName, lastName })
+  const { email, password, firstName, lastName, username } = req.body;
+  User.create({ email, password, firstName, lastName, username })
     .then(userCreated => {
       res.status(StatusCodes.CREATED).json(userCreated);
     })

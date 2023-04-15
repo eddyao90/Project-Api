@@ -4,6 +4,8 @@ const authController = require('../controllers/auth.controller');
 const { isAuthenticaded } = require('../middlewares/auth.middleware');
 const authMiddleware = require('../middlewares/auth.middleware');
 const postsController = require('../controllers/posts.controller');
+const pinController = require('../controllers/pin.controller');
+
 // test
 
 router.get("/message", (req, res) => {
@@ -25,8 +27,10 @@ router.get('/users/me', authMiddleware.isAuthenticaded, usersController.getCurre
 router.get('/users/:id', usersController.getUser);
 
 
-// Profile
+// Pin
 
+router.post('/map/pin', pinController.create);
+router.get('/map/pin', pinController.list);
 
 //Scrapbook
 
@@ -35,5 +39,6 @@ router.post('/posts', authMiddleware.isAuthenticaded, postsController.createPost
 router.get('/posts/:id', authMiddleware.isAuthenticaded, postsController.getPost);
 router.patch('/posts/:id', authMiddleware.isAuthenticaded, postsController.updatePost);
 router.delete('/posts/:id', authMiddleware.isAuthenticaded, postsController.deletePost);
- 
+
+
 module.exports = router;
