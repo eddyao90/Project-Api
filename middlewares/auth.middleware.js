@@ -3,14 +3,12 @@ const jwt = require('jsonwebtoken');
 
  module.exports.isAuthenticaded = (req, res, next) => {
    const authorization = req.header('Authorization')
-   console.log(authorization);
 
    if (!authorization) {
      return next(createError(401, 'No auth'));
    }
 
    const [type, token] = authorization.split(' ');
-   console.log({ type, token });
 
    if (type !== 'Bearer') {
      next(createError(401, 'Bearer error'));

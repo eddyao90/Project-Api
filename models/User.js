@@ -33,7 +33,11 @@ const UserSchema = new mongoose.Schema(
       type: String,
       required: [true, REQUIRED_FIELD],
       minlength: [8, INVALID_LENGTH],
-    }
+    },
+    alreadyFollowed: {
+      type: Boolean,
+      default: false
+    },
   },
   {
     timestamps: true,
@@ -47,6 +51,27 @@ const UserSchema = new mongoose.Schema(
     }
   }
 )
+
+UserSchema.virtual('pin', {
+  ref: 'Pin',
+  foreignField: 'user',
+  localField: '_id',
+  justOne: true
+})
+
+UserSchema.virtual("follow", {
+  ref: "Follow",
+  localField: "_id",
+  foreignField: "follower",
+  justOne: true,
+});
+
+UserSchema.virtual("follow", {
+  ref: "Follow",
+  localField: "_id",
+  foreignField: "following",
+  justOne: true,
+});
 
 UserSchema.pre('save', function(next) {
   if (this.isModified('password')) {

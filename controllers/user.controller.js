@@ -1,7 +1,7 @@
 const User = require('../models/User');
 const { StatusCodes } = require('http-status-codes');
 const createError = require('http-errors');
-const isAuthenticaded = require('../middlewares/auth.middleware')
+const Follow = require('../models/Follow');
 
  //criando usuario
  module.exports.create = (req, res, next) => {
@@ -13,9 +13,24 @@ const isAuthenticaded = require('../middlewares/auth.middleware')
     .catch(next)
 }
 
-module.exports.list = (req, res, next) => {
+module.exports.listPeopleToFollow = (req, res, next) => {
+  const currentUserId = req.params.id;
+
   User.find()
-    .then(users => res.json(users))
+    .then(users => {
+      Follow.find({ follower: currentUserId })
+        .then(follows => {
+          users.map((user) => {
+            follows.map((follow) => {
+              if(user.id === follow.following.valueOf()) {
+                user.alreadyFollowed = true;
+              }
+            })
+          })
+          res.status(StatusCodes.CREATED).json(users);
+        })
+        .catch(next)
+    })
     .catch(next)
 }
 

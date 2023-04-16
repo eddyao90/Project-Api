@@ -1,11 +1,12 @@
 const Pin = require('../models/Pin');
+const User = require('../models/User');
 const { StatusCodes } = require('http-status-codes');
 const createError = require('http-errors');
 
 
   module.exports.create = (req, res, next) =>{
-    const { username, title, desc, rating, long, lat } = req.body;
-    Pin.create({ username, title, desc, rating, long, lat })
+    const { user, title, desc, rating, long, lat } = req.body;
+    Pin.create({ user, title, desc, rating, long, lat })
     .then(pinCreated => {
         res.status(StatusCodes.CREATED).json(pinCreated);
     })
@@ -14,6 +15,7 @@ const createError = require('http-errors');
 
   module.exports.list = (req, res, next) => {
     Pin.find()
+    .populate('user')
     .then(pin => res.json(pin))
     .catch(next)
   }

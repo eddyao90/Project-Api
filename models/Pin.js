@@ -2,9 +2,9 @@ const mongoose = require("mongoose");
 
 const PinSchema = new mongoose.Schema(
   {
-    username: {
+    user: {
       type: mongoose.Types.ObjectId,
-            ref: 'username',
+            ref: 'User',
             required: true,
     },
     title: {
