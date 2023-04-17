@@ -9,11 +9,6 @@ const EMAIL_PATTERN =
 
 const UserSchema = new mongoose.Schema(
   {
-    user: {
-      type: mongoose.Types.ObjectId,
-      ref: 'User',
-      required: false,
-  },
     firstName: {
       type: String,
       required: [true, REQUIRED_FIELD]
@@ -49,7 +44,7 @@ const UserSchema = new mongoose.Schema(
     },
     gender: {
       type: String,
-      //required: [true, 'Gender is required']
+      enum: ['Female', 'Male', 'Prefer no to say']
   },
   birthday: {
       type: Date,

@@ -49,7 +49,9 @@ module.exports.listPeopleToFollow = (req, res, next) => {
 }
 
 module.exports.getUser = (req, res, next) => {
-  User.findById(req.params.id)
+  const { id } = req.params;
+
+  User.findById(id)
     .then(user => {
       if (!user) {
         next(createError(StatusCodes.NOT_FOUND, 'User not found'))

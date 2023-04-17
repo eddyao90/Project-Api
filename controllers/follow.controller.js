@@ -13,3 +13,25 @@ module.exports.doFollow = (req, res, next) => {
     })
     .catch(next)
 }
+
+module.exports.getPeopleIFollow = (req, res, next) => {
+    const { id } = req.params;
+    
+    Follow.find({ follower: id })
+    .populate('following')
+    .then((followList) => {
+        res.status(StatusCodes.OK).json(followList);
+    })
+    .catch(next)
+}
+
+module.exports.getPeopleWhoFollows = (req, res, next) => {
+    const { id } = req.params;
+    
+    Follow.find({ following: id })
+    .populate('follower')
+    .then((followerList) => {
+        res.status(StatusCodes.OK).json(followerList);
+    })
+    .catch(next)
+}

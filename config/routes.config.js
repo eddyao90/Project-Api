@@ -44,6 +44,8 @@ router.delete('/posts/:id', authMiddleware.isAuthenticaded, postsController.dele
 
 //Follow
 router.post('/follow/:id', authMiddleware.isAuthenticaded, followController.doFollow);
+router.get('/follow/following/:id', authMiddleware.isAuthenticaded, followController.getPeopleIFollow);
+router.get('/follow/followers/:id', authMiddleware.isAuthenticaded, followController.getPeopleWhoFollows);
 
 
 //Photos
