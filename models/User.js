@@ -9,6 +9,11 @@ const EMAIL_PATTERN =
 
 const UserSchema = new mongoose.Schema(
   {
+    user: {
+      type: mongoose.Types.ObjectId,
+      ref: 'User',
+      required: false,
+  },
     firstName: {
       type: String,
       required: [true, REQUIRED_FIELD]
@@ -38,6 +43,51 @@ const UserSchema = new mongoose.Schema(
       type: Boolean,
       default: false
     },
+    image: {
+      type: String,
+      default: "https://res.cloudinary.com/dgnace8dp/image/upload/v1676728201/profile-default_zk16xw.jpg"
+    },
+    gender: {
+      type: String,
+      //required: [true, 'Gender is required']
+  },
+  birthday: {
+      type: Date,
+      //required: [true, 'Birthday is required']
+  },
+  language: {
+      type: String,
+      //required: [true, 'At least one language is required']
+  },
+  looking: {
+      type: String,
+      //required: [true, 'Required'],
+      enum: ["friends", "travel companionship", "travel bussiness partnership"]
+  },
+  travel: {
+      type: String,
+      //required: [true, 'Required'],
+  },
+  activities: {
+      type: String,
+      //required: [true, 'Required'],
+  },
+  books: {
+      type: String,
+      //required: [true, 'Required'],
+  },
+  music: {
+      type: String,
+      //required: [true, 'Required'],
+  },
+  food: {
+      type: String,
+      //required: [true, 'Required'],
+  },
+  top3: {
+      type: String,
+      //required: [true, 'Required'],
+  }
   },
   {
     timestamps: true,
@@ -47,7 +97,10 @@ const UserSchema = new mongoose.Schema(
         delete ret._id;
         delete ret.__v;
         delete ret.password;
-      }
+      },
+    toObject: { 
+        virtuals: true
+      },
     }
   }
 )

@@ -6,6 +6,7 @@ const authMiddleware = require('../middlewares/auth.middleware');
 const postsController = require('../controllers/posts.controller');
 const pinController = require('../controllers/pin.controller');
 const followController = require('../controllers/follow.controller');
+const fileUploader = require('../config/cloudinary.config');
 
 // test
 
@@ -26,6 +27,7 @@ router.post('/users', usersController.create);
 router.get('/people/:id', usersController.listPeopleToFollow);
 router.get('/users/me', authMiddleware.isAuthenticaded, usersController.getCurrentUser);
 router.get('/users/:id', usersController.getUser);
+router.post('/users/edit', fileUploader.single('image'), usersController.edit);
 
 // Pin
 
@@ -42,6 +44,10 @@ router.delete('/posts/:id', authMiddleware.isAuthenticaded, postsController.dele
 
 //Follow
 router.post('/follow/:id', authMiddleware.isAuthenticaded, followController.doFollow);
+
+
+//Photos
+//router.post('/community', authMiddleware.isAuthenticaded, fileUploader.single('image'), communityController.doCreate);
 
 
 module.exports = router;

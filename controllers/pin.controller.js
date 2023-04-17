@@ -5,8 +5,8 @@ const createError = require('http-errors');
 
 
   module.exports.create = (req, res, next) =>{
-    const { user, title, desc, rating, long, lat } = req.body;
-    Pin.create({ user, title, desc, rating, long, lat })
+    const { user, title, descr, rating, long, lat } = req.body;
+    Pin.create({ user, title, descr, rating, long, lat })
     .then(pinCreated => {
         res.status(StatusCodes.CREATED).json(pinCreated);
     })

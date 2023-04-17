@@ -12,6 +12,20 @@ const Follow = require('../models/Follow');
     })
     .catch(next)
 }
+module.exports.edit = (req, res, next) => {
+  const { _id, firstName, lastName, gender, birthday, language, looking, travel, activities, books, music, food, top3 } = req.body;
+  let image;
+
+  if (req.file) {
+    image = req.file.path;
+  }
+
+  User.findOneAndUpdate(_id, { firstName, lastName, image, gender, birthday, language, looking, travel, activities, books, music, food, top3})
+  .then((edited) => {
+    res.status(StatusCodes.CREATED).json(edited);
+  })
+  .catch(next)
+}
 
 module.exports.listPeopleToFollow = (req, res, next) => {
   const currentUserId = req.params.id;
@@ -58,13 +72,4 @@ module.exports.getCurrentUser = (req, res, next) => {
     .catch(next)
 }
 
-module.exports.profile = (req, res, next) => {
-  const { id } = req.user;
-
-  Profile.findById(id)
-  .then(profile => {
-      res.render('user/profile')
-  })
-  .catch(err => next(err))
-};
 
