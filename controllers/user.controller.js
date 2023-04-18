@@ -13,14 +13,14 @@ const Follow = require('../models/Follow');
     .catch(next)
 }
 module.exports.edit = (req, res, next) => {
-  const { _id, firstName, lastName, gender, birthday, language, looking, travel, activities, books, music, food, top3 } = req.body;
+  const { id, firstName, lastName, gender, countries, cities, level, birthday, language, looking, travel, activities, books, music, food, top3 } = req.body;
   let image;
 
   if (req.file) {
     image = req.file.path;
   }
 
-  User.findOneAndUpdate(_id, { firstName, lastName, image, gender, birthday, language, looking, travel, activities, books, music, food, top3})
+  User.findByIdAndUpdate(id, { firstName, lastName, image, gender, countries, cities, level, birthday, language, looking, travel, activities, books, music, food, top3})
   .then((edited) => {
     res.status(StatusCodes.CREATED).json(edited);
   })

@@ -46,6 +46,18 @@ const UserSchema = new mongoose.Schema(
       type: String,
       enum: ['Female', 'Male', 'Prefer no to say']
   },
+  countries: {
+    type: String,
+    //required: [true, 'Required'],
+  },
+  cities: {
+    type: String,
+    //required: [true, 'Required'],
+  },
+  level: {
+  type: String,
+  enum: ['Baby Traveler', 'Explorer', 'Nomad', 'Cheap Traveler', 'Food Seeker', 'Adventurer']
+  },
   birthday: {
       type: Date,
       //required: [true, 'Birthday is required']
@@ -82,7 +94,8 @@ const UserSchema = new mongoose.Schema(
   top3: {
       type: String,
       //required: [true, 'Required'],
-  }
+  },
+  
   },
   {
     timestamps: true,
