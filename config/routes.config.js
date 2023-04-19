@@ -7,6 +7,7 @@ const postsController = require('../controllers/posts.controller');
 const pinController = require('../controllers/pin.controller');
 const followController = require('../controllers/follow.controller');
 const fileUploader = require('../config/cloudinary.config');
+const commentController = require('../controllers/comment.controller');
 
 // test
 
@@ -47,6 +48,11 @@ router.post('/follow/:id', authMiddleware.isAuthenticaded, followController.doFo
 router.get('/follow/following/:id', authMiddleware.isAuthenticaded, followController.getPeopleIFollow);
 router.get('/follow/followers/:id', authMiddleware.isAuthenticaded, followController.getPeopleWhoFollows);
 
+
+//Comment
+router.post("/scrapbook/comments", commentController.createComment);
+router.get("/scrapbook/comments/:id", commentController.getComments);
+router.delete("/scrapbook/comments/:id", commentController.deleteComment);
 
 //Photos
 //router.post('/community', authMiddleware.isAuthenticaded, fileUploader.single('image'), communityController.doCreate);
