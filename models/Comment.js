@@ -13,7 +13,11 @@ const CommentSchema = new mongoose.Schema(
         required: [true, 'Comment here'],
         minLength: [3, ''],
         required: [true, REQUIRED_FIELD]
-    }
+    },
+    whoWrote: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'User'
+    },
   },
   {
     timestamps: true,

@@ -44,18 +44,22 @@ const UserSchema = new mongoose.Schema(
     },
     gender: {
       type: String,
+      default: 'Prefer not to say',
       enum: ['Female', 'Male', 'Prefer not to say', 'Nonbinary']
   },
   countries: {
     type: String,
+    default: 1,
     //required: [true, 'Required'],
   },
   cities: {
     type: String,
+    default: 1,
     //required: [true, 'Required'],
   },
   level: {
   type: String,
+  default: 'baby Traveler',
   enum: ['Baby Traveler', 'Explorer', 'Nomad', 'Cheap Traveler', 'Food Seeker', 'Adventurer']
   },
   birthday: {
@@ -68,6 +72,7 @@ const UserSchema = new mongoose.Schema(
   },
   looking: {
       type: String,
+      default: 'friends',
       //required: [true, 'Required'],
       enum: ["friends", "travel companionship", "travel bussiness partnership"]
   },
@@ -95,6 +100,7 @@ const UserSchema = new mongoose.Schema(
       type: String,
       //required: [true, 'Required'],
   },
+
   
   },
   {
@@ -131,6 +137,21 @@ UserSchema.virtual("follow", {
   ref: "Follow",
   localField: "_id",
   foreignField: "following",
+  justOne: true,
+});
+
+UserSchema.virtual("comment", {
+  ref: "Comment",
+  localField: "_id",
+  foreignField: "user",
+  justOne: true,
+});
+
+
+UserSchema.virtual("comment", {
+  ref: "Comment",
+  localField: "_id",
+  foreignField: "whoWrote",
   justOne: true,
 });
 

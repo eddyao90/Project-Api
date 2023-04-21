@@ -3,9 +3,9 @@ const Comment = require('../models/Comment');
 
 
 module.exports.createComment = (req, res, next) => {
-    const { comment, id } = req.body;
+    const { comment, user, whoWrote } = req.body;
 
-    Comment.create({user: id, comment: comment})
+    Comment.create({user, comment, whoWrote})
     .then((created) => {
         res.status(StatusCodes.CREATED).json(created);
     })
@@ -17,6 +17,7 @@ module.exports.getComments = (req, res, next) => {
     
     Comment.find({user: id})
     .populate('user')
+    .populate('whoWrote')
     .then((comments) => {
         res.status(StatusCodes.OK).json(comments);
     })
