@@ -18,6 +18,7 @@ const CommentSchema = new mongoose.Schema(
       type: mongoose.Schema.Types.ObjectId,
       ref: 'User'
     },
+    createdAt: { type: Date, default: Date.now },
   },
   {
     timestamps: true,
@@ -31,7 +32,7 @@ const CommentSchema = new mongoose.Schema(
             return ret
         }
     }
-  }
+  },
 );
 
 const Comment = mongoose.model('Comment', CommentSchema);
